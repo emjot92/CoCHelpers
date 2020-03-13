@@ -111,6 +111,14 @@ namespace CoCHelpers.Classes
             }
         }
 
+        public void Import(string pathToImport)
+        {
 
+        }
+
+        public void Export(string pathToExport)
+        {
+
+        }
     }
 }
