@@ -45,15 +45,15 @@ namespace CoCHelpers.Classes
         [JsonProperty]
         public int SanityPoints { get; set; }
 
-        public int Movement 
-        { 
-            get 
+        public int Movement
+        {
+            get
             {
-                if(Dexterity < Size && Strength < Size)
+                if (Dexterity < Size && Strength < Size)
                 {
                     return 7;
                 }
-                else if(Strength > Size && Dexterity >= Size)
+                else if (Strength > Size && Dexterity >= Size)
                 {
                     return 9;
                 }
@@ -63,5 +63,8 @@ namespace CoCHelpers.Classes
                 }
             }
         }
+
+        [JsonProperty]
+        public bool MajorWound { get; set; }
     }
 }

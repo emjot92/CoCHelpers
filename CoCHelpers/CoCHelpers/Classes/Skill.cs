@@ -18,5 +18,8 @@ namespace CoCHelpers.Classes
 
         [JsonProperty]
         public bool IsModern { get; set; }
+
+        [JsonProperty]
+        public bool IsDevelopmentChecked { get; set; }
     }
 }
