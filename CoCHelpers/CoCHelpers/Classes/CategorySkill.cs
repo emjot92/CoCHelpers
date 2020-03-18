@@ -6,6 +6,6 @@ namespace CoCHelpers.Classes
     public class CategorySkill : Skill
     {
         [JsonProperty]
-        public ObservableCollection<Skill> Skills { get; set; }
+        public ObservableCollection<Skill> CategorizedSkills { get; set; }
     }
 }

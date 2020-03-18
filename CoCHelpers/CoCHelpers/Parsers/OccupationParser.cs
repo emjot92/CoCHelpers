@@ -13,6 +13,11 @@ namespace CoCHelpers.Parsers
         public async Task<IEnumerable<Occupation>> ParseDataAsync(string pathToFile)
         {
             var records = new List<string>();
+            var occupations = new List<Occupation>();
+
+            if (File.Exists(pathToFile))
+                return occupations;
+
             using (var file = File.OpenRead(pathToFile))
             {
                 using (var reader = new StreamReader(file))
@@ -25,7 +30,6 @@ namespace CoCHelpers.Parsers
                 }
             }
 
-            var occupations = new List<Occupation>();
             foreach (var record in records)
             {
                 var splitted = record.Split('\t');

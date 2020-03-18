@@ -14,6 +14,8 @@ namespace CoCHelpers.Parsers
         public async Task<IEnumerable<Skill>> ParseDataAsync(string pathToFile)
         {
             var parsedData = new List<Skill>();
+            if (!File.Exists(pathToFile))
+                return parsedData;
 
             using (var file = File.OpenRead(pathToFile))
             {
@@ -23,36 +25,39 @@ namespace CoCHelpers.Parsers
                     do
                     {
                         line = await reader.ReadLineAsync();
-                        var splitted = line.Split('\t');
-
-                        if (splitted.Count() == 5)
+                        if(line != null)
                         {
-                            Skill skill = null;
-                            Enum.TryParse<SkillCategory>(splitted[2], out SkillCategory skillCategory);
-                            bool isCategory = bool.Parse(splitted[4]);
-                            if (isCategory)
+                            var splitted = line.Split('\t');
+
+                            if (splitted.Count() == 5)
                             {
-                                skill = new CategorySkill
+                                Skill skill = null;
+                                Enum.TryParse<SkillCategory>(splitted[2], out SkillCategory skillCategory);
+                                bool isCategory = bool.Parse(splitted[4]);
+                                if (isCategory)
                                 {
-                                    Name = splitted[0],
-                                    StartingValue = int.Parse(splitted[1]),
-                                    Category = skillCategory,
-                                    IsModern = bool.Parse(splitted[3]),
-                                    Value = 0
-                                };
-                            }
-                            else
-                            {
-                                skill = new Skill
+                                    skill = new CategorySkill
+                                    {
+                                        Name = splitted[0],
+                                        StartingValue = int.Parse(splitted[1]),
+                                        Category = skillCategory,
+                                        IsModern = bool.Parse(splitted[3]),
+                                        Value = 0
+                                    };
+                                }
+                                else
                                 {
-                                    Name = splitted[0],
-                                    StartingValue = int.Parse(splitted[1]),
-                                    Category = skillCategory,
-                                    IsModern = bool.Parse(splitted[3]),
-                                    Value = int.Parse(splitted[1])
-                                };
+                                    skill = new Skill
+                                    {
+                                        Name = splitted[0],
+                                        StartingValue = int.Parse(splitted[1]),
+                                        Category = skillCategory,
+                                        IsModern = bool.Parse(splitted[3]),
+                                        Value = int.Parse(splitted[1])
+                                    };
+                                }
+                                parsedData.Add(skill);
                             }
-                            parsedData.Add(skill);
                         }
                     }
                     while (line != null);
@@ -63,7 +68,7 @@ namespace CoCHelpers.Parsers
             foreach (var categorySkill in categorySkills)
             {
                 var skillsWithCurrentCategory = parsedData.Where(s => s.Category == categorySkill.Category);
-                categorySkill.Skills = new ObservableCollection<Skill>(skillsWithCurrentCategory);
+                categorySkill.CategorizedSkills = new ObservableCollection<Skill>(skillsWithCurrentCategory);
             }
             var skills = new List<Skill>();
             skills.AddRange(categorySkills);

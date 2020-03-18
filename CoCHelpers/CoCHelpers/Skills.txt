@@ -1,0 +1,86 @@
+Accounting	5	None	FALSE	FALSE
+Acting	5	ArtCraft	FALSE	FALSE
+Animal Handling	5	Uncommon	FALSE	FALSE
+Anthropology	1	None	FALSE	FALSE
+Appraise	5	None	FALSE	FALSE
+Archeology	1	None	FALSE	FALSE
+Art and Craft	5	ArtCraft	FALSE	TRUE
+Artillery	1	Uncommon	FALSE	FALSE
+Astronomy	1	Science	FALSE	FALSE
+Axe	15	Fighting	FALSE	FALSE
+Biology	1	Science	FALSE	FALSE
+Botany	1	Science	FALSE	FALSE
+Bow	15	Firearms	FALSE	FALSE
+Brawl	25	Fighting	FALSE	FALSE
+Chainsaw	10	Fighting	FALSE	FALSE
+Charm	15	None	FALSE	FALSE
+Chemistry	1	Science	FALSE	FALSE
+Climb	20	None	FALSE	FALSE
+Computer Use	5	None	TRUE	FALSE
+Credit Rating	0	None	FALSE	FALSE
+Cryptography	1	Science	FALSE	FALSE
+Cthulhu Mythos	0	None	FALSE	FALSE
+Demolitions	1	Uncommon	FALSE	FALSE
+Disguise	5	None	FALSE	FALSE
+Diving	1	None	FALSE	FALSE
+Dodge	0	None	FALSE	FALSE
+Drive Auto	20	None	FALSE	FALSE
+Electrical Repair	10	None	FALSE	FALSE
+Electronics	1	None	TRUE	FALSE
+Fast Talk	5	None	FALSE	FALSE
+Fighting	25	Fighting	FALSE	TRUE
+Fine Art	5	ArtCraft	FALSE	FALSE
+Firearms Rifle/Shotgun	0	FirearmsRifleShotgun	FALSE	TRUE
+Firearms	0	Firearms	FALSE	TRUE
+First Aid	30	None	FALSE	FALSE
+Flail	10	Fighting	FALSE	FALSE
+Flamethrower	10	Firearms	FALSE	FALSE
+Forensics	5	Science	FALSE	FALSE
+Forgery	1	ArtCraft	FALSE	FALSE
+Garrote	15	Fighting	FALSE	FALSE
+Geology	1	Science	FALSE	FALSE
+Handgun	20	Firearms	FALSE	FALSE
+Heavy Weapons	10	Firearms	FALSE	FALSE
+History	5	None	FALSE	FALSE
+Hypnosis	1	Uncommon	FALSE	FALSE
+Intimidate	15	None	FALSE	FALSE
+Jump	20	None	FALSE	FALSE
+Language (Other)	1	OtherLanguage	FALSE	TRUE
+Language (Own)	0	None	FALSE	FALSE
+Law	5	None	FALSE	FALSE
+Library Use	20	None	FALSE	FALSE
+Listen	20	None	FALSE	FALSE
+Locksmith	1	None	FALSE	FALSE
+Machine Gun	10	Firearms	FALSE	FALSE
+Mathematics	1	Science	FALSE	FALSE
+Mechanical Repair	10	None	FALSE	FALSE
+Medicine	1	None	FALSE	FALSE
+Meteorology	1	Science	FALSE	FALSE
+Natural World	10	None	FALSE	FALSE
+Navigate	10	None	FALSE	FALSE
+Occult	5	None	FALSE	FALSE
+Operate Heavy Machinery	1	None	FALSE	FALSE
+Persuade	10	None	FALSE	FALSE
+Pharmacy	1	Science	FALSE	FALSE
+Photography	5	ArtCraft	FALSE	FALSE
+Physics	1	Science	FALSE	FALSE
+Pilot	1	None	FALSE	FALSE
+Psychoanalysis	1	None	FALSE	FALSE
+Psychology	10	None	FALSE	FALSE
+Read Lips	1	Uncommon	FALSE	FALSE
+Ride	5	None	FALSE	FALSE
+Rifle	25	FirearmsRifleShotgun	FALSE	FALSE
+Science	1	Science	FALSE	TRUE
+Shotgun	25	FirearmsRifleShotgun	FALSE	FALSE
+Sleight of Hand	10	None	FALSE	FALSE
+Spear	20	Firearms	FALSE	FALSE
+Spot Hidden	25	None	FALSE	FALSE
+Stealth	20	None	FALSE	FALSE
+Submachine Gun	15	Firearms	FALSE	FALSE
+Survival	10	None	FALSE	FALSE
+Sword	20	Fighting	FALSE	FALSE
+Swim	20	None	FALSE	FALSE
+Throw	20	None	FALSE	FALSE
+Track	10	None	FALSE	FALSE
+Whip	5	Fighting	FALSE	FALSE
+Zoology	1	Science	FALSE	FALSE

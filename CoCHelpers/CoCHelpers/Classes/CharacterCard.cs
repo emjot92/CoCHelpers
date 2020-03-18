@@ -1,6 +1,12 @@
 ﻿using CoCHelpers.Extensions;
+using CoCHelpers.Interfaces;
+using CoCHelpers.Parsers;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CoCHelpers.Classes
 {
@@ -9,19 +15,64 @@ namespace CoCHelpers.Classes
         private const int DamageBonusBuildDivider = 80;
         private const int DamageBonusBuildBehaviorChangeLevel = 205;
 
-        public InvestigatorData InvestigatorData { get; }
+        private readonly ISkillParser _skillParser;
 
-        public Characteristics Characteristics { get; }
+        public CharacterCard() : this(new SkillParser(), new InvestigatorData(), new Characteristics(), new ObservableCollection<Skill>(), new ObservableCollection<Weapon>(), new InvestigatorHistory(), new Belongings(), new ObservableCollection<Relations>())
+        {
+        }
 
-        public ObservableCollection<Skill> Skills { get; }
+        private CharacterCard(InvestigatorData investigatorData, Characteristics characteristics, ObservableCollection<Skill> skills, ObservableCollection<Weapon> weapons, InvestigatorHistory investigatorHistory, Belongings belongings, ObservableCollection<Relations> relations) : this(new SkillParser())
+        {
+            InvestigatorData = investigatorData;
+            Characteristics = characteristics;
+            Skills = skills;
+            Weapons = weapons;
+            InvestigatorHistory = investigatorHistory;
+            Belongings = belongings;
+            Relations = relations;
+        }
 
-        public ObservableCollection<Weapon> Weapons { get; }
+        private CharacterCard(ISkillParser skillParser, InvestigatorData investigatorData, Characteristics characteristics, ObservableCollection<Skill> skills, ObservableCollection<Weapon> weapons, InvestigatorHistory investigatorHistory, Belongings belongings, ObservableCollection<Relations> relations) : this(skillParser)
+        {
+            InvestigatorData = investigatorData;
+            Characteristics = characteristics;
+            Skills = skills;
+            Weapons = weapons;
+            InvestigatorHistory = investigatorHistory;
+            Belongings = belongings;
+            Relations = relations;
+            InitializeAsync().Wait();
+        }
 
-        public InvestigatorHistory InvestigatorHistory { get; }
+        private CharacterCard(ISkillParser skillParser)
+        {
+            _skillParser = skillParser;
+        }
 
-        public Belongings Belongings { get; }
+        public static CharacterCard Create(InvestigatorData investigatorData, Characteristics characteristics, ObservableCollection<Skill> skills, ObservableCollection<Weapon> weapons, InvestigatorHistory investigatorHistory, Belongings belongings, ObservableCollection<Relations> relations)
+        {
+            return new CharacterCard(investigatorData,
+                characteristics,
+                skills,
+                weapons,
+                investigatorHistory,
+                belongings,
+                relations);
+        }
 
-        public ObservableCollection<Relations> Relations { get; }
+        public InvestigatorData InvestigatorData { get; private set; }
+
+        public Characteristics Characteristics { get; private set; }
+
+        public ObservableCollection<Skill> Skills { get; private set; }
+
+        public ObservableCollection<Weapon> Weapons { get; private set; }
+
+        public InvestigatorHistory InvestigatorHistory { get; private set; }
+
+        public Belongings Belongings { get; private set; }
+
+        public ObservableCollection<Relations> Relations { get; private set; }
 
         public string DamageBonus
         {
@@ -111,14 +162,46 @@ namespace CoCHelpers.Classes
             }
         }
 
-        public void Import(string pathToImport)
+        public async Task InitializeAsync()
         {
+            var skills = await this._skillParser.ParseDataAsync("Skills.txt");
+            foreach (var skill in skills)
+            {
+                Skills.Add(skill);
+            }
 
         }
 
-        public void Export(string pathToExport)
+        public async Task ImportAsync(string pathToImport)
         {
+            using (var file = File.OpenRead(pathToImport))
+            {
+                using (var reader = new StreamReader(file))
+                {
+                    var charactedCardJson = await reader.ReadToEndAsync().ConfigureAwait(false);
+                    var characterCardSkillsCorrect = JsonConvert.DeserializeObject<CharacterCard>(charactedCardJson, new JsonSerializerSettings 
+                    {
+                        ObjectCreationHandling = ObjectCreationHandling.Replace
+                    });
+                    var characterCardRestCorrect = JsonConvert.DeserializeObject<CharacterCard>(charactedCardJson);
+                    InvestigatorData = characterCardRestCorrect.InvestigatorData;
+                    Characteristics = characterCardRestCorrect.Characteristics;
+                    Skills = characterCardSkillsCorrect.Skills;
+                    Weapons = characterCardRestCorrect.Weapons;
+                    InvestigatorHistory = characterCardRestCorrect.InvestigatorHistory;
+                    Belongings = characterCardRestCorrect.Belongings;
+                    Relations = characterCardRestCorrect.Relations;
+                }
+            }
+        }
 
+        public Task ExportAsync(string pathToExport)
+        {
+            return Task.Run(() =>
+            {
+                var charactedCardJson = JsonConvert.SerializeObject(this, new JsonSerializerSettings { Formatting = Formatting.Indented, PreserveReferencesHandling = PreserveReferencesHandling.Objects });
+                File.WriteAllText(pathToExport, charactedCardJson);
+            });
         }
     }
 }
